@@ -1,6 +1,6 @@
 # React Native
 
-[React Native Web Sitesi](https://reactnative.dev/)
+- [React Native Web Sitesi](https://reactnative.dev/)
 
 1. Yeni React Native projesinin oluşturulması
 ```

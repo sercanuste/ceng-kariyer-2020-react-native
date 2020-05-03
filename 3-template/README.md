@@ -1,6 +1,6 @@
 # Template
 
-[React Native Elements Web Sitesi](https://react-native-elements.github.io/react-native-elements/)
+- [React Native Elements Web Sitesi](https://react-native-elements.github.io/react-native-elements/)
 
 1. React Native Elements'in projeye eklenmesi
 ```

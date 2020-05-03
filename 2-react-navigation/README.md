@@ -1,6 +1,6 @@
 # React Navigation
 
-[React Navigation Web Sitesi](https://reactnavigation.org/)
+- [React Navigation Web Sitesi](https://reactnavigation.org/)
 
 1. Sayfaların Oluşturulması
 ```jsx
