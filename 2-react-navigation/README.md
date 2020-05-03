@@ -33,7 +33,7 @@ npm install react-native-reanimated react-native-gesture-handler react-native-sc
 npx pod-install ios
 ```
 
-3. App.js'in React Navigation güncellenmesi
+3. App.js'in React Navigation için güncellenmesi
 ```jsx
 import 'react-native-gesture-handler';
 import React, { Component } from 'react';
