@@ -12,6 +12,7 @@ import {
     ListItem
 } from 'react-native-elements';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 export default class HomeScreen extends Component {
     constructor(props) {
@@ -20,25 +21,22 @@ export default class HomeScreen extends Component {
 
     state = {
         isAuthenticated: false,
-        users: [{
-            userId: 1,
-            userName: 'User 1',
-        },
-        {
-            userId: 2,
-            userName: 'User 2'
-        }],
-        loading: true
+        users: [],
+        loading: true,
+        userName: '',
+        userId: ''
     };
 
     componentDidMount() {
         if (auth().currentUser != null) {
-            this.setState({ isAuthenticated: true });
+            this.setState({ isAuthenticated: true, userId: auth().currentUser.uid });
         }
 
         this.setState({ loading: false });
 
         this.renderLogoutButton();
+
+        this.getUsers();
     }
 
     renderLogoutButton() {
@@ -64,18 +62,29 @@ export default class HomeScreen extends Component {
 
     renderLogin() {
         return <View style={{ flex: 1, padding: 30, alignItems: 'center', justifyContent: 'center' }}>
-            <Input style={{ marginBottom: 10 }} placeholder="User Name" />
+            <Input style={{ marginBottom: 10 }} placeholder="User Name" disabled={this.state.loading} onChangeText={(text) => this.setState({ userName: text })} />
             <Button buttonStyle={{ backgroundColor: '#8BC34A' }} title="Login" disabled={this.state.loading} onPress={() => this.login()} />
         </View>
     }
 
     login() {
+        if (this.state.userName.trim() == '') { return; }
+
         this.setState({ loading: true });
 
         auth()
             .signInAnonymously()
-            .then(() => {
+            .then(async (credentials) => {
                 console.log('User signed in anonymously');
+
+                const user = {
+                    userId: credentials.user.uid,
+                    userName: this.state.userName
+                }
+
+                const userDocument = firestore().collection('Users').doc(credentials.user.uid);
+                await userDocument.set(user);
+
                 this.setState({ loading: false, isAuthenticated: true }, () => { this.renderLogoutButton(); });
             })
             .catch(error => {
@@ -88,12 +97,18 @@ export default class HomeScreen extends Component {
             });
     }
 
+    getUsers() {
+        firestore().collection('Users').onSnapshot((users) => {
+            this.setState({ users: users.docs.filter((user) => { return user.data().userId != this.state.userId }) });
+        })
+    }
+
     keyExtractor = (item, index) => index.toString()
 
     renderItem = ({ item }) => (
         <ListItem
-            onPress={() => { this.props.navigation.navigate('Chat', { userName: item.userName, userId: item.userId }) }}
-            title={item.userName}
+            onPress={() => { this.props.navigation.navigate('Chat', { userName: item.data().userName, userId: item.data().userId }) }}
+            title={item.data().userName}
             bottomDivider
             chevron
         />
