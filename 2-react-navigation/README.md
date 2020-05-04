@@ -84,7 +84,7 @@ export default class App extends Component {
 }
 ```
 
-6. Navigation
+6. Navigation (HomeScreen.js)
 ```jsx
 <TouchableOpacity onPress={() => { this.props.navigation.navigate('Chat') }}>
     <Text>Go to Chat</Text>

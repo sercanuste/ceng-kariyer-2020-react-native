@@ -6,11 +6,10 @@
 ```
 npm i react-native-elements --save
 npm i react-native-vector-icons --save
-react-native link react-native-vector-icons
 cd ios && pod install
 ```
 
-2. Giriş Alanı
+2. Giriş Alanı (HomeScreen.js)
 ```jsx
 import {
     Input,
@@ -44,7 +43,7 @@ render() {
 }
 ```
 
-3. Kullanıcı Listesi
+3. Kullanıcı Listesi (HomeScreen.js)
 ```jsx
 import { SafeAreaView, FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements'
@@ -85,7 +84,7 @@ renderUsers() {
 }
 ```
 
-4. Chat ekranına parametre gönderme
+4. Chat ekranına parametre gönderme (HomeScreen.js)
 ```jsx
 renderItem = ({ item }) => (
     <ListItem
@@ -97,7 +96,7 @@ renderItem = ({ item }) => (
 )
 ```
 
-5. Chat ekranı başlığını parametreye göre güncelleme
+5. Chat ekranı başlığını parametreye göre güncelleme (ChatScreen.js)
 ```jsx
 componentDidMount() {
     if (this.props.route.params.userName) {
@@ -106,7 +105,7 @@ componentDidMount() {
 }
 ```
 
-6. Mesajlar
+6. Mesajlar (ChatScreen.js)
 ```jsx
 import { SafeAreaView, FlatList } from 'react-native';
 import { ListItem } from 'react-native-elements'
@@ -148,7 +147,7 @@ render() {
 }
 ```
 
-7. Mesaj gönderme
+7. Mesaj gönderme (ChatScreen.js)
 ```jsx
 import { Platform, KeyboardAvoidingView } from 'react-native';
 import { Input } from 'react-native-elements'

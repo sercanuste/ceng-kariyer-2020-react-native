@@ -16,7 +16,7 @@ export default class HomeScreen extends Component {
     }
 
     state = {
-        isAuthenticated: true,
+        isAuthenticated: false,
         users: [{
             userId: 1,
             userName: 'User 1',
