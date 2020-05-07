@@ -85,7 +85,7 @@ export default class HomeScreen extends Component {
                 const userDocument = firestore().collection('Users').doc(credentials.user.uid);
                 await userDocument.set(user);
 
-                this.setState({ loading: false, isAuthenticated: true }, () => { this.renderLogoutButton(); });
+                this.setState({ loading: false, isAuthenticated: true, userId: credentials.user.uid }, () => { this.renderLogoutButton(); });
             })
             .catch(error => {
                 if (error.code === 'auth/operation-not-allowed') {

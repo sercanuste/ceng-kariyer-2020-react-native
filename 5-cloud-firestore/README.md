@@ -72,6 +72,18 @@ componentDidMount() {
 }
 ```
 ```jsx
+login() {
+    ...
+
+    auth()
+        .signInAnonymously()
+        .then(async (credentials) => {
+            ...
+            this.setState({ loading: false, isAuthenticated: true, userId: credentials.user.uid }, () => { // Update this line
+            ...
+}
+```
+```jsx
 getUsers() {
     firestore().collection('Users').onSnapshot((users) => {
         this.setState({ users: users.docs.filter((user) => { return user.data().userId != this.state.userId }) });
